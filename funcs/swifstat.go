@@ -106,7 +106,7 @@ func initVariable() {
 
 func AllSwitchIp() (allIp []string) {
 	//switchIp := g.Config().Switch.IpRange
-	log.Println("进入获取IP方法")
+	log.Println("进入AllSwitchIp方法")
 	switchIp,_ := hhrmodel.GetIp()
 	log.Println(switchIp)
 
@@ -119,11 +119,11 @@ func AllSwitchIp() (allIp []string) {
 		}
 	}
 	log.Println(allIp)
-	log.Println("即将结束获取IP方法")
 	return allIp
 }
 
 func SwIfMetrics() (L []*model.MetricValue) {
+	log.Println("进入SwIfMetrics方法")
 	switchIp,_ := hhrmodel.GetIp()
 	if g.Config().Switch.Enabled && len(switchIp) > 0 {
 		return swIfMetrics()
@@ -132,6 +132,7 @@ func SwIfMetrics() (L []*model.MetricValue) {
 }
 
 func swIfMetrics() (L []*model.MetricValue) {
+	log.Println("进入swIfMetrics方法")
 	if g.ReloadType() {
 		g.ParseConfig(g.ConfigFile)
 		if g.Config().SwitchHosts.Enabled {
@@ -146,9 +147,7 @@ func swIfMetrics() (L []*model.MetricValue) {
 	}
 	initVariable()
 	ts := time.Now().Unix()
-	log.Println("即将获取ip")
 	allIp := AllSwitchIp()
-	log.Println("获取ip完毕")
 	timeout := time.Duration(g.Config().Transfer.Interval) * time.Second
 
 	chs := make([]chan ChIfStat, len(allIp))
