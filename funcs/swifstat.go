@@ -107,6 +107,7 @@ func initVariable() {
 func AllSwitchIp() (allIp []string) {
 	//switchIp := g.Config().Switch.IpRange
 	switchIp,_ := hhrmodel.GetIp()
+	log.Println(switchIp)
 
 	if len(switchIp) > 0 {
 		for _, sip := range switchIp {
@@ -116,6 +117,7 @@ func AllSwitchIp() (allIp []string) {
 			}
 		}
 	}
+	log.Println(allIp)
 	return allIp
 }
 
