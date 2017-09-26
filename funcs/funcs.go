@@ -27,4 +27,5 @@ func BuildMappers() {
 			Interval: interval,
 		},
 	}
+	log.Println("结束BuildMappers方法")
 }
