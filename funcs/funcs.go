@@ -1,6 +1,7 @@
 package funcs
 
 import (
+	"log"
 	"github.com/gaochao1/swcollector/g"
 	"github.com/open-falcon/common/model"
 )
