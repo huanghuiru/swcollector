@@ -106,9 +106,7 @@ func initVariable() {
 
 func AllSwitchIp() (allIp []string) {
 	//switchIp := g.Config().Switch.IpRange
-	log.Println("进入AllSwitchIp方法")
 	switchIp,_ := hhrmodel.GetIp()
-	log.Println(switchIp)
 
 	if len(switchIp) > 0 {
 		for _, sip := range switchIp {
@@ -118,12 +116,10 @@ func AllSwitchIp() (allIp []string) {
 			}
 		}
 	}
-	log.Println(allIp)
 	return allIp
 }
 
 func SwIfMetrics() (L []*model.MetricValue) {
-	log.Println("进入SwIfMetrics方法")
 	switchIp,_ := hhrmodel.GetIp()
 	if g.Config().Switch.Enabled && len(switchIp) > 0 {
 		return swIfMetrics()
@@ -132,7 +128,6 @@ func SwIfMetrics() (L []*model.MetricValue) {
 }
 
 func swIfMetrics() (L []*model.MetricValue) {
-	log.Println("进入swIfMetrics方法")
 	if g.ReloadType() {
 		g.ParseConfig(g.ConfigFile)
 		if g.Config().SwitchHosts.Enabled {
