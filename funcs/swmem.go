@@ -39,7 +39,7 @@ func MemMetrics() (L []*model.MetricValue) {
 func memMetrics(ip string, ch chan SwMem) {
 	var swMem SwMem
 	switchinfo,_ := hhrmodel.GetInfo()
-	community := hhrmodel.GetPassword(switchinfo,ip)
+	community,_ := hhrmodel.GetPassword(switchinfo,ip)
 
 	memUtili, err := sw.MemUtilization(ip, community, g.Config().Switch.SnmpTimeout, g.Config().Switch.SnmpRetry)
 	if err != nil {
