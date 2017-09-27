@@ -1,7 +1,7 @@
 package config
 
 import (
-"log
+"log"
 "fmt"
 
 _ "github.com/go-sql-driver/mysql"
