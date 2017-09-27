@@ -89,7 +89,7 @@ func custMetrics(ip string, metric *g.MetricConfig, ch chan CustM) {
 	var custmmetric CustmMetric
 	var custmmetrics []CustmMetric
 	switchinfo,_ := hhrmodel.GetInfo()
-	community := hhrmodel.GetPassword(switchinfo,ip)
+	community,_ := hhrmodel.GetPassword(switchinfo,ip)
 	value, err := GetCustMetric(ip, community, metric.Oid, g.Config().Switch.SnmpTimeout, g.Config().Switch.SnmpRetry)
 	if err != nil {
 		log.Println(ip, metric.Oid, err)
