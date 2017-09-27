@@ -1,9 +1,10 @@
 package funcs
 
 import (
-	"time"
 	"log"
-	
+	"time"
+
+	"github.com/huanghuiru/swcollector/hhrmodel"
 	"github.com/gaochao1/sw"
 	"github.com/gaochao1/swcollector/g"
 	"github.com/open-falcon/common/model"
@@ -15,6 +16,8 @@ type SwCpu struct {
 }
 
 func CpuMetrics() (L []*model.MetricValue) {
+	
+	log.Println("进入CpuMetrics方法")
 
 	chs := make([]chan SwCpu, len(AliveIp))
 	for i, ip := range AliveIp {
@@ -37,8 +40,10 @@ func CpuMetrics() (L []*model.MetricValue) {
 
 func cpuMetrics(ip string, ch chan SwCpu) {
 	var swCpu SwCpu
+	switchinfo,_ := hhrmodel.GetInfo()
+	community := hhrmodel.GetPassword(switchinfo,ip)
 
-	cpuUtili, err := sw.CpuUtilization(ip, g.Config().Switch.Community, g.Config().Switch.SnmpTimeout, g.Config().Switch.SnmpRetry)
+	cpuUtili, err := sw.CpuUtilization(ip, community, g.Config().Switch.SnmpTimeout, g.Config().Switch.SnmpRetry)
 	if err != nil {
 		log.Println(err)
 		close(ch)
