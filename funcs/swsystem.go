@@ -3,6 +3,7 @@ package funcs
 import (
 	"log"
 
+	"github.com/huanghuiru/swcollector/hhrmodel"
 	"github.com/gaochao1/sw"
 	"github.com/gaochao1/swcollector/g"
 )
@@ -37,6 +38,8 @@ func SwSystemInfo() (swList []SwSystem) {
 func swSystemInfo(ip string, ch chan SwSystem) {
 	var swSystem SwSystem
 	swSystem.Ip = ip
+	switchinfo,_ := hhrmodel.GetInfo()
+	community := hhrmodel.GetPassword(switchinfo,ip)
 
 	//ping timeout.Millisecond
 	timeout := 1000
@@ -50,7 +53,7 @@ func swSystemInfo(ip string, ch chan SwSystem) {
 	} else {
 		swSystem.Ping = ping["max"]
 
-		uptime, err := sw.SysUpTime(ip, g.Config().Switch.Community, timeout)
+		uptime, err := sw.SysUpTime(ip, community, timeout)
 		if err != nil {
 			log.Println(err)
 			ch <- swSystem
@@ -58,28 +61,28 @@ func swSystemInfo(ip string, ch chan SwSystem) {
 		} else {
 			swSystem.Uptime = uptime
 
-			cpuUtili, err := sw.CpuUtilization(ip, g.Config().Switch.Community, timeout, 1)
+			cpuUtili, err := sw.CpuUtilization(ip, community, timeout, 1)
 			if err != nil {
 				log.Println(err)
 			} else {
 				swSystem.Cpu = cpuUtili
 			}
 
-			memUtili, err := sw.MemUtilization(ip, g.Config().Switch.Community, timeout, 1)
+			memUtili, err := sw.MemUtilization(ip, community, timeout, 1)
 			if err != nil {
 				log.Println(err)
 			} else {
 				swSystem.Mem = memUtili
 			}
 
-			swModel, err := sw.SysModel(ip, g.Config().Switch.Community, timeout, 1)
+			swModel, err := sw.SysModel(ip, community, timeout, 1)
 			if err != nil {
 				log.Println(err)
 			} else {
 				swSystem.Model = swModel
 			}
 
-			swName, err := sw.SysName(ip, g.Config().Switch.Community, timeout)
+			swName, err := sw.SysName(ip, community, timeout)
 			if err != nil {
 				log.Println(err)
 			} else {
