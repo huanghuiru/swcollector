@@ -4,6 +4,7 @@ import (
 	"log"
 	"time"
 
+	"github.com/huanghuiru/swcollector/hhrmodel"
 	"github.com/gaochao1/sw"
 	"github.com/gaochao1/swcollector/g"
 	"github.com/open-falcon/common/model"
@@ -37,8 +38,10 @@ func MemMetrics() (L []*model.MetricValue) {
 
 func memMetrics(ip string, ch chan SwMem) {
 	var swMem SwMem
+	switchinfo,_ := hhrmodel.GetInfo()
+	community := hhrmodel.GetPassword(switchinfo,ip)
 
-	memUtili, err := sw.MemUtilization(ip, g.Config().Switch.Community, g.Config().Switch.SnmpTimeout, g.Config().Switch.SnmpRetry)
+	memUtili, err := sw.MemUtilization(ip, community, g.Config().Switch.SnmpTimeout, g.Config().Switch.SnmpRetry)
 	if err != nil {
 		log.Println(err)
 		close(ch)
