@@ -16,8 +16,6 @@ type SwCpu struct {
 }
 
 func CpuMetrics() (L []*model.MetricValue) {
-	
-	log.Println("进入CpuMetrics方法")
 
 	chs := make([]chan SwCpu, len(AliveIp))
 	for i, ip := range AliveIp {
