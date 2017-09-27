@@ -10,7 +10,8 @@ import (
 )
 
 func configSwRoutes() {
-	switchIp,_ := hhrmodel.GetIp()
+	switchinfo,_ := hhrmodel.GetIp()
+	switchIp := switchinfo.Ipaddr
 
 	http.HandleFunc("/page/sw/time", func(w http.ResponseWriter, req *http.Request) {
 		RenderDataJson(w, time.Now().Format("2006-01-02 15:04:05"))
