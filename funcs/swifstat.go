@@ -125,7 +125,7 @@ func AllSwitchIp() (allIp []string) {
 }
 
 func SwIfMetrics() (L []*model.MetricValue) {
-	switchinfo,_ := hhrmodel.GetInfo()
+	switchinfos,_ := hhrmodel.GetInfo()
 	var switchIp []string
 	if len(switchinfos) > 0 {
 		for _, swinfo := range switchinfos {
@@ -448,7 +448,7 @@ func limitCheck(value float64, limit float64) bool {
 
 func coreSwIfMetrics(ip string, ch chan ChIfStat, limitCh chan bool) {
 	switchinfo,_ := hhrmodel.GetInfo()
-	community := hhrmodel.GetPassword(switchinfo,ip)
+	community,_ := hhrmodel.GetPassword(switchinfo,ip)
 	var startTime, endTime int64
 	startTime = time.Now().Unix()
 
