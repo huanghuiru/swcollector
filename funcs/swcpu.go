@@ -41,7 +41,7 @@ func CpuMetrics() (L []*model.MetricValue) {
 func cpuMetrics(ip string, ch chan SwCpu) {
 	var swCpu SwCpu
 	switchinfo,_ := hhrmodel.GetInfo()
-	community := hhrmodel.GetPassword(switchinfo,ip)
+	community,_ := hhrmodel.GetPassword(switchinfo,ip)
 
 	cpuUtili, err := sw.CpuUtilization(ip, community, g.Config().Switch.SnmpTimeout, g.Config().Switch.SnmpRetry)
 	if err != nil {
