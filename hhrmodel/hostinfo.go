@@ -22,33 +22,44 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-type Hostinfo struct {
-	ID     int64  `json:"id" `
-	IP   string `json:"ip"`
+type Equipment struct {
+	ID          int64   `json:"id" `
+	Type	    string	`json:"type" `
+	Hostname	string	`json:"hostname" `
+	Ipaddr		string	`json:"ipaddr" `
+	Sn			string	`json:"sn" `
+	Os			string	`json:"os" `
+	Site		string	`json:"site" `
+	Location	string	`json:"location" `
+	Model		string	`json:"model" `
+	Description	string	`json:"description" `
+	Password	string	`json:"password" `
+	Nodegroup	string	`json:"nodegroup" `
+	Enable		bool	`json:"enable" `
+
 }
 
 func GetIp() (ips []string, err error) {
-	portal, err := gorm.Open("mysql", "root:root@tcp(10.112.95.1:3306)/swcollector")
+	portal, err := gorm.Open("mysql", "root:root@tcp(10.112.95.1:3306)/gnet")
+	defer portal.Close()
 	if err != nil {
 		err = fmt.Errorf("connect to swcollector: %s", err.Error())
 		log.Print(err)
-		portal.Close()
 		return
 	}
 	portal.SingularTable(true)
-	portal.AutoMigrate(&Hostinfo{})
-	var hostinfo Hostinfo
-	dt := portal.First(&hostinfo)
-	portal.Close()
+	portal.AutoMigrate(&Equipment{})
+	var equipment Equipment
+	dt := portal.First(&equipment)
 	if dt.Error != nil {
 		err = dt.Error
 		log.Print(err)
 		return
 	}
-	ips = []string{hostinfo.IP}
+	ips = []string{equipment.Ipaddr}
 	return
 }
 
-func (this Hostinfo) TableName() string {
-	return "hostinfo"
+func (this Equipment) TableName() string {
+	return "equipment"
 }
