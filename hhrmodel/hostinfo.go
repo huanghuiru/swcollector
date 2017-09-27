@@ -28,7 +28,7 @@ type Hostinfo struct {
 }
 
 func GetIp() (ips []string, err error) {
-	portal, err := gorm.Open("mysql", "root:root@tcp(10.112.95.1:3306)/swcollector")
+	portal, err := gorm.Open("mysql", "root:root@tcp(10.112.95.1:3306)/swcollecto")
 	if err != nil {
 		err = fmt.Errorf("connect to swcollector: %s", err.Error())
 		portal.Close()
