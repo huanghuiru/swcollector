@@ -63,7 +63,6 @@ var (
 	pingTimeout         int
 	pingRetry           int
 	lastifmap           *LastifMap
-	community           string
 	snmpTimeout         int
 	snmpRetry           int
 	displayByBit        bool
@@ -83,11 +82,11 @@ var (
 )
 
 func initVariable() {
+
 	pingTimeout = g.Config().Switch.PingTimeout
 	fastPingMode = g.Config().Switch.FastPingMode
 	pingRetry = g.Config().Switch.PingRetry
 
-	community = g.Config().Switch.Community
 	snmpTimeout = g.Config().Switch.SnmpTimeout
 	snmpRetry = g.Config().Switch.SnmpRetry
 	limitCon = g.Config().Switch.LimitCon
@@ -105,8 +104,14 @@ func initVariable() {
 }
 
 func AllSwitchIp() (allIp []string) {
-	//switchIp := g.Config().Switch.IpRange
-	switchIp,_ := hhrmodel.GetIp()
+	switchinfos,_ := hhrmodel.GetInfo()
+
+	var switchIp []string
+	if len(switchinfos) > 0 {
+		for _, swinfo := range switchinfos {
+			switchIp = append(switchIp, swinfo.Ipaddr)
+		}
+	}
 
 	if len(switchIp) > 0 {
 		for _, sip := range switchIp {
@@ -120,7 +125,13 @@ func AllSwitchIp() (allIp []string) {
 }
 
 func SwIfMetrics() (L []*model.MetricValue) {
-	switchIp,_ := hhrmodel.GetIp()
+	switchinfo,_ := hhrmodel.GetInfo()
+	var switchIp []string
+	if len(switchinfos) > 0 {
+		for _, swinfo := range switchinfos {
+			switchIp = append(switchIp, swinfo.Ipaddr)
+		}
+	}
 	if g.Config().Switch.Enabled && len(switchIp) > 0 {
 		return swIfMetrics()
 	}
@@ -436,6 +447,8 @@ func limitCheck(value float64, limit float64) bool {
 }
 
 func coreSwIfMetrics(ip string, ch chan ChIfStat, limitCh chan bool) {
+	switchinfo,_ := hhrmodel.GetInfo()
+	community := hhrmodel.GetPassword(switchinfo,ip)
 	var startTime, endTime int64
 	startTime = time.Now().Unix()
 
