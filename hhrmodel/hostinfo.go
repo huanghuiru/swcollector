@@ -42,6 +42,7 @@ func GetIp() (ips []string, err error) {
 	portal.Close()
 	if dt.Error != nil {
 		err = dt.Error
+		log.Print(err)
 		return
 	}
 	ips = []string{hostinfo.IP}
