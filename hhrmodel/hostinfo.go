@@ -18,6 +18,7 @@ import (
 	"fmt"
 	"log"
 
+	con "github.com/huanghuiru/swcollector/config"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 )
@@ -40,17 +41,10 @@ type Equipment struct {
 }
 
 func GetInfo() (swinfos []Equipment, err error) {
-	portal, err := gorm.Open("mysql", "root:root@tcp(10.112.95.1:3306)/gnet")
-	defer portal.Close()
-	if err != nil {
-		err = fmt.Errorf("connect to swcollector: %s", err.Error())
-		log.Println(err)
-		return
-	}
-	portal.SingularTable(true)
-	portal.AutoMigrate(&Equipment{})
+	db := con.Con().Switchboard
+	db.AutoMigrate(&Equipment{})
 	var equipment Equipment
-	dt := portal.First(&equipment)
+	dt := db.Find(&equipment)
 	if dt.Error != nil {
 		err = dt.Error
 		log.Println(err)
