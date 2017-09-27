@@ -39,12 +39,12 @@ type Equipment struct {
 
 }
 
-func GetIp() (ips []string, err error) {
+func GetInfo() (swinfos []Equipment, err error) {
 	portal, err := gorm.Open("mysql", "root:root@tcp(10.112.95.1:3306)/gnet")
 	defer portal.Close()
 	if err != nil {
 		err = fmt.Errorf("connect to swcollector: %s", err.Error())
-		log.Print(err)
+		log.Println(err)
 		return
 	}
 	portal.SingularTable(true)
@@ -53,11 +53,25 @@ func GetIp() (ips []string, err error) {
 	dt := portal.First(&equipment)
 	if dt.Error != nil {
 		err = dt.Error
-		log.Print(err)
+		log.Println(err)
 		return
 	}
-	ips = []string{equipment.Ipaddr}
+	swinfos = []Equipment{equipment}
 	return
+}
+
+func GetPassword(swinfos []Equipment,ip string) (pw string,err error) {
+	if len(swinfos) > 0 {
+		for _, swinfo := range swinfos {
+			if swinfo.Ipaddr == ip {
+				pw = swinfo.Password
+				return
+			}
+			err = fmt.Errorf("%s don't has snmp password",ip)
+			log.Println(err)
+			return
+		}
+	}
 }
 
 func (this Equipment) TableName() string {
