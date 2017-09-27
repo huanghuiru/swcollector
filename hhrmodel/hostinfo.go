@@ -67,11 +67,14 @@ func GetPassword(swinfos []Equipment,ip string) (pw string,err error) {
 				pw = swinfo.Password
 				return
 			}
-			err = fmt.Errorf("%s don't has snmp password",ip)
-			log.Println(err)
-			return
 		}
+		err = fmt.Errorf("%s don't has snmp password",ip)
+		log.Println(err)
+		return
 	}
+	err = fmt.Errorf("there is no switchboard info")
+	log.Println(err)
+	return
 }
 
 func (this Equipment) TableName() string {
