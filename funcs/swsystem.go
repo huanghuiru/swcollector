@@ -5,7 +5,6 @@ import (
 
 	"github.com/huanghuiru/swcollector/hhrmodel"
 	"github.com/gaochao1/sw"
-	"github.com/gaochao1/swcollector/g"
 )
 
 type SwSystem struct {
@@ -39,7 +38,7 @@ func swSystemInfo(ip string, ch chan SwSystem) {
 	var swSystem SwSystem
 	swSystem.Ip = ip
 	switchinfo,_ := hhrmodel.GetInfo()
-	community := hhrmodel.GetPassword(switchinfo,ip)
+	community,_ := hhrmodel.GetPassword(switchinfo,ip)
 
 	//ping timeout.Millisecond
 	timeout := 1000
