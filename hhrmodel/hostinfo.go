@@ -16,7 +16,6 @@ package hhrmodel
 
 import (
 	"fmt"
-	"log"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
@@ -32,7 +31,6 @@ func GetIp() (ips []string, err error) {
 	if err != nil {
 		err = fmt.Errorf("connect to swcollector: %s", err.Error())
 		portal.Close()
-		log.Println(err)
 		return
 	}
 	portal.SingularTable(true)
