@@ -7,6 +7,7 @@ import (
 
 	"time"
 
+	"github.com/huanghuiru/swcollector/hhrmodel"
 	go_snmp "github.com/gaochao1/gosnmp"
 	"github.com/gaochao1/sw"
 	"github.com/gaochao1/swcollector/g"
@@ -87,7 +88,9 @@ func custMetrics(ip string, metric *g.MetricConfig, ch chan CustM) {
 	var custm CustM
 	var custmmetric CustmMetric
 	var custmmetrics []CustmMetric
-	value, err := GetCustMetric(ip, g.Config().Switch.Community, metric.Oid, g.Config().Switch.SnmpTimeout, g.Config().Switch.SnmpRetry)
+	switchinfo,_ := hhrmodel.GetInfo()
+	community := hhrmodel.GetPassword(switchinfo,ip)
+	value, err := GetCustMetric(ip, community, metric.Oid, g.Config().Switch.SnmpTimeout, g.Config().Switch.SnmpRetry)
 	if err != nil {
 		log.Println(ip, metric.Oid, err)
 		close(ch)
