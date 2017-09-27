@@ -19,7 +19,7 @@ import (
 	"log"
 
 	con "github.com/huanghuiru/swcollector/config"
-	_ "github.com/go-sql-driver/mysql
+	_ "github.com/go-sql-driver/mysql"
 )
 
 type Equipment struct {
