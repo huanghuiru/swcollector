@@ -13,7 +13,6 @@ type FuncsAndInterval struct {
 
 var Mappers []FuncsAndInterval
 func BuildMappers() {
-	log.Println("进入BuildMappers方法")
 	interval := g.Config().Transfer.Interval
 	Mappers = []FuncsAndInterval{
 		FuncsAndInterval{
@@ -27,5 +26,4 @@ func BuildMappers() {
 			Interval: interval,
 		},
 	}
-	log.Println("结束BuildMappers方法")
 }
