@@ -10,7 +10,7 @@ import (
 )
 
 func configSwRoutes() {
-	switchinfo,_ := hhrmodel.GetInfo()
+	switchinfos,_ := hhrmodel.GetIp()
 	var switchIp []string
 	if len(switchinfos) > 0 {
 		for _, swinfo := range switchinfos {
