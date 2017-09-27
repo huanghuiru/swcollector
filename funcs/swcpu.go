@@ -1,9 +1,9 @@
 package funcs
 
 import (
-	"log"
 	"time"
-
+	"log"
+	
 	"github.com/gaochao1/sw"
 	"github.com/gaochao1/swcollector/g"
 	"github.com/open-falcon/common/model"
@@ -15,8 +15,6 @@ type SwCpu struct {
 }
 
 func CpuMetrics() (L []*model.MetricValue) {
-	
-	log.Println("进入CpuMetrics方法")
 
 	chs := make([]chan SwCpu, len(AliveIp))
 	for i, ip := range AliveIp {
