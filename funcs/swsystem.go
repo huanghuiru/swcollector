@@ -3,7 +3,7 @@ package funcs
 import (
 	"log"
 
-	"github.com/huanghuiru/swcollector/hhrmodel"
+	"github.com/huanghuiru/swcollector/config"
 	"github.com/gaochao1/sw"
 )
 
@@ -37,8 +37,8 @@ func SwSystemInfo() (swList []SwSystem) {
 func swSystemInfo(ip string, ch chan SwSystem) {
 	var swSystem SwSystem
 	swSystem.Ip = ip
-	switchinfo,_ := hhrmodel.GetInfo()
-	community,_ := hhrmodel.GetPassword(switchinfo,ip)
+	switchinfos := config.Info()
+	community,_ := config.GetPassword(switchinfo,ip)
 
 	//ping timeout.Millisecond
 	timeout := 1000
