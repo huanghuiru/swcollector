@@ -38,7 +38,7 @@ func CpuMetrics() (L []*model.MetricValue) {
 
 func cpuMetrics(ip string, ch chan SwCpu) {
 	var swCpu SwCpu
-	switchinfos := config.Info()
+	switchinfo := config.Info()
 	community,_ := config.GetPassword(switchinfo,ip)
 
 	cpuUtili, err := sw.CpuUtilization(ip, community, g.Config().Switch.SnmpTimeout, g.Config().Switch.SnmpRetry)
