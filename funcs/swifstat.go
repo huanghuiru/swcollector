@@ -104,7 +104,7 @@ func initVariable() {
 }
 
 func AllSwitchIp() (allIp []string) {
-	sswitchinfos := config.Info()
+	switchinfos := config.Info()
 
 	var switchIp []string
 	if len(switchinfos) > 0 {
@@ -447,7 +447,7 @@ func limitCheck(value float64, limit float64) bool {
 }
 
 func coreSwIfMetrics(ip string, ch chan ChIfStat, limitCh chan bool) {
-	switchinfos := config.Info()
+	switchinfo := config.Info()
 	community,_ := config.GetPassword(switchinfo,ip)
 	var startTime, endTime int64
 	startTime = time.Now().Unix()
