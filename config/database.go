@@ -13,12 +13,34 @@ type DBPool struct {
 	Switchboard    *gorm.DB
 }
 
+type Equipment struct {
+	ID          int64   `json:"id" `
+	Type	    string	`json:"type" `
+	Hostname	string	`json:"hostname" `
+	Ipaddr		string	`json:"ipaddr" `
+	Sn			string	`json:"sn" `
+	Os			string	`json:"os" `
+	Site		string	`json:"site" `
+	Location	string	`json:"location" `
+	Model		string	`json:"model" `
+	Description	string	`json:"description" `
+	Password	string	`json:"password" `
+	Nodegroup	string	`json:"nodegroup" `
+	Enable		bool	`json:"enable" `
+
+}
+
 var (
 	dbp DBPool
+	swinfos []Equipment
 )
 
 func Con() DBPool {
 	return dbp
+}
+
+func Info() []Equipment {
+	return swinfos
 }
 
 func InitDB() (err error) {
@@ -35,7 +57,7 @@ func InitDB() (err error) {
 	return
 }
 
-func GetInfo() (swinfos []Equipment, err error) {
+func GetInfo() (err error) {
 	db := Con().Switchboard
 	db.AutoMigrate(&Equipment{})
 	var equipment Equipment
@@ -47,6 +69,27 @@ func GetInfo() (swinfos []Equipment, err error) {
 	}
 	swinfos = []Equipment{equipment}
 	return
+}
+
+func GetPassword(swinfos []Equipment,ip string) (pw string,err error) {
+	if len(swinfos) > 0 {
+		for _, swinfo := range swinfos {
+			if swinfo.Ipaddr == ip {
+				pw = swinfo.Password
+				return
+			}
+		}
+		err = fmt.Errorf("%s don't has snmp password",ip)
+		log.Println(err)
+		return
+	}
+	err = fmt.Errorf("there is no switchboard info")
+	log.Println(err)
+	return
+}
+
+func (this Equipment) TableName() string {
+	return "equipment"
 }
 
 func CloseDB() (err error) {
