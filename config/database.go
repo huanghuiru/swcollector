@@ -1,11 +1,12 @@
 package config
 
 import (
-"log"
+"database/sql"
 "fmt"
 
 _ "github.com/go-sql-driver/mysql"
 "github.com/jinzhu/gorm"
+"github.com/spf13/viper"
 )
 
 type DBPool struct {
@@ -31,6 +32,20 @@ func InitDB() (err error) {
 
 	dbp.Switchboard = portal
 
+	return
+}
+
+func GetInfo() (swinfos []Equipment, err error) {
+	db := Con().Switchboard
+	db.AutoMigrate(&Equipment{})
+	var equipment Equipment
+	dt := db.Find(&equipment)
+	if dt.Error != nil {
+		err = dt.Error
+		log.Println(err)
+		return
+	}
+	swinfos = []Equipment{equipment}
 	return
 }
 
