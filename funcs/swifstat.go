@@ -5,7 +5,7 @@ import (
 	"sync"
 
 	"github.com/gaochao1/swcollector/g"
-	"github.com/huanghuiru/swcollector/hhrmodel"
+	"github.com/huanghuiru/swcollector/config"
 	"github.com/open-falcon/common/model"
 
 	"github.com/gaochao1/sw"
@@ -104,7 +104,7 @@ func initVariable() {
 }
 
 func AllSwitchIp() (allIp []string) {
-	switchinfos,_ := hhrmodel.GetInfo()
+	sswitchinfos := config.Info()
 
 	var switchIp []string
 	if len(switchinfos) > 0 {
@@ -125,7 +125,7 @@ func AllSwitchIp() (allIp []string) {
 }
 
 func SwIfMetrics() (L []*model.MetricValue) {
-	switchinfos,_ := hhrmodel.GetInfo()
+	switchinfos := config.Info()
 	var switchIp []string
 	if len(switchinfos) > 0 {
 		for _, swinfo := range switchinfos {
@@ -447,8 +447,8 @@ func limitCheck(value float64, limit float64) bool {
 }
 
 func coreSwIfMetrics(ip string, ch chan ChIfStat, limitCh chan bool) {
-	switchinfo,_ := hhrmodel.GetInfo()
-	community,_ := hhrmodel.GetPassword(switchinfo,ip)
+	switchinfos := config.Info()
+	community,_ := config.GetPassword(switchinfo,ip)
 	var startTime, endTime int64
 	startTime = time.Now().Unix()
 
