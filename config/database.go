@@ -59,14 +59,14 @@ func InitDB() (err error) {
 func GetInfo() (err error) {
 	db := Con().Switchboard
 	db.AutoMigrate(&Equipment{})
-	var equipment Equipment
+	equipment := []Equipment{}
 	dt := db.Find(&equipment)
 	if dt.Error != nil {
 		err = dt.Error
 		log.Println(err)
 		return
 	}
-	swinfos = []Equipment{equipment}
+	swinfos = equipment
 	return
 }
 
