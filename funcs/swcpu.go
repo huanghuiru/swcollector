@@ -4,7 +4,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/huanghuiru/swcollector/hhrmodel"
+	"github.com/huanghuiru/swcollector/config"
 	"github.com/gaochao1/sw"
 	"github.com/gaochao1/swcollector/g"
 	"github.com/open-falcon/common/model"
@@ -38,8 +38,8 @@ func CpuMetrics() (L []*model.MetricValue) {
 
 func cpuMetrics(ip string, ch chan SwCpu) {
 	var swCpu SwCpu
-	switchinfo,_ := hhrmodel.GetInfo()
-	community,_ := hhrmodel.GetPassword(switchinfo,ip)
+	switchinfos := config.Info()
+	community,_ := config.GetPassword(switchinfo,ip)
 
 	cpuUtili, err := sw.CpuUtilization(ip, community, g.Config().Switch.SnmpTimeout, g.Config().Switch.SnmpRetry)
 	if err != nil {
