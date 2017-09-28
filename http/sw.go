@@ -3,14 +3,14 @@ package http
 import (
 	"fmt"
 	"github.com/gaochao1/swcollector/funcs"
-	"github.com/huanghuiru/swcollector/hhrmodel"
+	"github.com/huanghuiru/swcollector/config"
 	"net/http"
 	"strings"
 	"time"
 )
 
 func configSwRoutes() {
-	switchinfos,_ := hhrmodel.GetInfo()
+	switchinfos := config.Info()
 	var switchIp []string
 	if len(switchinfos) > 0 {
 		for _, swinfo := range switchinfos {
