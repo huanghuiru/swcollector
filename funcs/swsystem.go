@@ -37,7 +37,7 @@ func SwSystemInfo() (swList []SwSystem) {
 func swSystemInfo(ip string, ch chan SwSystem) {
 	var swSystem SwSystem
 	swSystem.Ip = ip
-	switchinfos := config.Info()
+	switchinfo := config.Info()
 	community,_ := config.GetPassword(switchinfo,ip)
 
 	//ping timeout.Millisecond
