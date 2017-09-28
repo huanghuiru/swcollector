@@ -1,6 +1,7 @@
 package http
 
 import (
+        "github.com/huanghuiru/swcollector/config"
 	"encoding/json"
 	"log"
 	"net/http"
@@ -15,6 +16,7 @@ type Dto struct {
 }
 
 func init() {
+	config.InitDB()
 	configAdminRoutes()
 	configHealthRoutes()
 	configPageRoutes()
