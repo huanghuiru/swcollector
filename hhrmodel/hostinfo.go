@@ -42,14 +42,14 @@ type Equipment struct {
 func GetInfo() (swinfos []Equipment, err error) {
 	db := con.Con().Switchboard
 	db.AutoMigrate(&Equipment{})
-	var equipment Equipment
+	equipment := []Equipment{}
 	dt := db.Find(&equipment)
 	if dt.Error != nil {
 		err = dt.Error
 		log.Println(err)
 		return
 	}
-	swinfos = []Equipment{equipment}
+	swinfos = equipment
 	return
 }
 
