@@ -1,13 +1,13 @@
 package http
 
 import (
-        "github.com/huanghuiru/swcollector/config"
 	"encoding/json"
 	"log"
 	"net/http"
 	_ "net/http/pprof"
 
 	"github.com/gaochao1/swcollector/g"
+	"github.com/huanghuiru/swcollector/config"
 )
 
 type Dto struct {
@@ -17,6 +17,7 @@ type Dto struct {
 
 func init() {
 	config.InitDB()
+	config.GetInfo()
 	configAdminRoutes()
 	configHealthRoutes()
 	configPageRoutes()
