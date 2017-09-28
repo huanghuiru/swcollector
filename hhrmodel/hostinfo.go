@@ -20,6 +20,7 @@ import (
 
 	con "github.com/huanghuiru/swcollector/config"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/jinzhu/gorm"
 )
 
 type Equipment struct {
@@ -40,17 +41,7 @@ type Equipment struct {
 }
 
 func GetInfo() (swinfos []Equipment, err error) {
-	db := con.Con().Switchboard
-	db.AutoMigrate(&Equipment{})
-	equipment := []Equipment{}
-	dt := db.Find(&equipment)
-	if dt.Error != nil {
-		err = dt.Error
-		log.Println(err)
-		return
-	}
-	swinfos = equipment
-	return
+	swinfos,err = con.GetInfo()
 }
 
 func GetPassword(swinfos []Equipment,ip string) (pw string,err error) {
