@@ -39,7 +39,7 @@ func Con() DBPool {
 }
 
 func Info() []Equipment {
-	return swinfos[0:50]
+	return swinfos[0:25]
 }
 
 func InitDB() (err error) {
