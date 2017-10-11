@@ -44,7 +44,9 @@ func MetricToTransfer(sec int64, fns []func() []*model.MetricValue) {
 		}
 
 		for _, mv := range items {
-			mvs = append(mvs, mv)
+			if mv.Value != math.NaN() {
+				mvs = append(mvs, mv)
+			}
 		}
 	}
 
