@@ -64,7 +64,6 @@ var (
 	pingTimeout         int
 	pingRetry           int
 	lastifmap           *LastifMap
-	community           string
 	snmpTimeout         int
 	snmpRetry           int
 	displayByBit        bool
@@ -88,7 +87,6 @@ func initVariable() {
 	fastPingMode = g.Config().Switch.FastPingMode
 	pingRetry = g.Config().Switch.PingRetry
 
-	community = g.Config().Switch.Community
 	snmpTimeout = g.Config().Switch.SnmpTimeout
 	snmpRetry = g.Config().Switch.SnmpRetry
 	limitCon = g.Config().Switch.LimitCon
@@ -753,6 +751,8 @@ func limitCheck(value float64, limit float64) bool {
 }
 
 func coreSwIfMetrics(ip string, ch chan ChIfStat, limitCh chan bool) {
+	switchinfo := config.Info()
+	community,_ := config.GetPassword(switchinfo,ip)
 	var startTime, endTime int64
 	startTime = time.Now().Unix()
 
