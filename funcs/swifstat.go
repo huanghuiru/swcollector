@@ -444,7 +444,7 @@ func swIfInMetrics() (L []*model.MetricValue) {
 			log.Println("AliveIp:", i, v)
 		}
 	}
-
+	log.Println("l:"L)
 	return
 }
 
