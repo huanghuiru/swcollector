@@ -10,7 +10,10 @@ func CheckCollector() {
 
 	output["CpuMetrics  "] = len(CpuMetrics()) > 0
 	output["MemMetrics  "] = len(MemMetrics()) > 0
-	output["SwIfMetrics "] = len(SwIfMetrics()) > 0
+	output["SwIfInMetrics "] = len(SwIfInMetrics()) > 0
+	output["SwIfInSpeedPercentMetrics "] = len(SwIfInSpeedPercentMetrics()) > 0
+        output["SwIfOutMetrics "] = len(SwIfOutMetrics()) > 0
+        output["SwIfOutSpeedPercentMetrics "] = len(SwIfOutSpeedPercentMetrics()) > 0
 
 	for k, v := range output {
 		status := "fail"
