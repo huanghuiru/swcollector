@@ -4,7 +4,7 @@ import (
 	"log"
 
 	"github.com/huanghuiru/swcollector/config"
-	"github.com/gaochao1/sw"
+	"github.com/huanghuiru/sw"
 )
 
 type SwSystem struct {
