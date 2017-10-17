@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/huanghuiru/swcollector/config"
-	"github.com/gaochao1/sw"
+	"github.com/huanghuiru/sw"
 	"github.com/gaochao1/swcollector/g"
 	"github.com/open-falcon/common/model"
 )
