@@ -8,7 +8,7 @@ import (
 	"github.com/huanghuiru/swcollector/config"
 	"github.com/open-falcon/common/model"
 
-	"github.com/gaochao1/sw"
+	"github.com/huanghuiru/sw"
 	"github.com/toolkits/slice"
 
 	"strconv"
