@@ -232,6 +232,9 @@ func swIfInMetrics() (L []*model.MetricValue) {
 					ifNameTag := "ifName=" + ifStat.IfName
 					ifIndexTag := "ifIndex=" + strconv.Itoa(ifStat.IfIndex)
 					ip := chIfStat.Ip
+					L = append(L, GaugeValueIp(ifStat.TS, ip, "switch.TXPower", ifStat.TXPowerOctets, ifNameTag, ifIndexTag))
+					L = append(L, GaugeValueIp(ifStat.TS, ip, "switch.RXPower", ifStat.RXPowerOctets, ifNameTag, ifIndexTag))
+
 					if ignoreOperStatus == false {
 						L = append(L, GaugeValueIp(ifStat.TS, ip, "switch.if.OperStatus", ifStat.IfOperStatus, ifNameTag, ifIndexTag))
 					}
@@ -444,7 +447,7 @@ func swIfInMetrics() (L []*model.MetricValue) {
 			log.Println("AliveIp:", i, v)
 		}
 	}
-	
+	log.Println("l:",L)
 	return
 }
 
