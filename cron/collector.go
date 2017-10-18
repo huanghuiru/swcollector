@@ -69,6 +69,7 @@ func MetricToTransfer(sec int64, fns []func() []*model.MetricValue) {
 		}
 		time.Sleep(100 * time.Millisecond)
 
+		log.Println("SendToTransferSendToTransfer")
 		go g.SendToTransfer(mvsSend)
 	}
 
