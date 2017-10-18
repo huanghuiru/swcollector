@@ -31,29 +31,32 @@ func collect(sec int64, fns []func() []*model.MetricValue) {
 }
 
 func MetricToTransfer(sec int64, fns []func() []*model.MetricValue) {
+	log.Println("*MetricToTransfer")
 	mvs := []*model.MetricValue{}
 
 	for _, fn := range fns {
 		items := fn()
 		if items == nil {
+			log.Println("items is nil")
 			continue
 		}
 
 		if len(items) == 0 {
+			log.Println("items is 0")
 			continue
 		}
 
+		log.Println(items)
 		for _, mv := range items {
-			if mv.Value != math.NaN() && mv.Value != "NaN" {
-				mvs = append(mvs, mv)
-			}
+			log.Println(mv)
+			mvs = append(mvs, mv)
 		}
 	}
 
 	startTime := time.Now()
 
 	//分批次传给transfer
-	n := 5000
+	n := 200
 	lenMvs := len(mvs)
 
 	div := lenMvs / n
