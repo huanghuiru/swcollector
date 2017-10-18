@@ -46,7 +46,7 @@ func MetricToTransfer(sec int64, fns []func() []*model.MetricValue) {
 			continue
 		}
 
-		log.Println(items)
+		log.Println("*items",items)
 		for _, mv := range items {
 			log.Println(mv)
 			mvs = append(mvs, mv)
