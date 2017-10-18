@@ -31,27 +31,20 @@ func collect(sec int64, fns []func() []*model.MetricValue) {
 }
 
 func MetricToTransfer(sec int64, fns []func() []*model.MetricValue) {
-	log.Println("*MetricToTransfer")
 	mvs := []*model.MetricValue{}
 
-	log.Println("*fns",fns)
 	for _, fn := range fns {
-		log.Println("*fn",fn)
 		items := fn()
 		log.Println("firstitems",items)
 		if items == nil {
-			log.Println("items is nil")
 			continue
 		}
 
 		if len(items) == 0 {
-			log.Println("items is 0")
 			continue
 		}
 
-		log.Println("*items",items)
 		for _, mv := range items {
-			log.Println(mv)
 			mvs = append(mvs, mv)
 		}
 	}
@@ -75,16 +68,9 @@ func MetricToTransfer(sec int64, fns []func() []*model.MetricValue) {
 		}
 		time.Sleep(100 * time.Millisecond)
 
-		log.Println("SendToTransferSendToTransfer")
 		go g.SendToTransfer(mvsSend)
 	}
 
 	endTime := time.Now()
-	log.Println("collect end.............................................................................................")
-	log.Println("collect end.............................................................................................")
-        log.Println("collect end.............................................................................................")
-	log.Println("collect end.............................................................................................")
-	log.Println("collect end.............................................................................................")
-	log.Println("collect end.............................................................................................")
 	log.Println("INFO : Send metrics to transfer running in the background. Process time :", endTime.Sub(startTime), "Send metrics :", len(mvs))
 }
