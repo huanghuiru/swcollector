@@ -35,6 +35,7 @@ func MetricToTransfer(sec int64, fns []func() []*model.MetricValue) {
 
 	for _, fn := range fns {
 		items := fn()
+		log.Println("testitems")
 		log.Println("firstitems",items)
 		if items == nil {
 			continue
