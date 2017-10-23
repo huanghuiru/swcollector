@@ -35,7 +35,6 @@ func MetricToTransfer(sec int64, fns []func() []*model.MetricValue) {
 	log.Println("*fns",fns)
 	
 	for _, fn := range fns {
-		log.Println("*fn",*fn)
 		items := fn()
 		log.Println("firstitems",items)
 		if items == nil {
@@ -48,7 +47,7 @@ func MetricToTransfer(sec int64, fns []func() []*model.MetricValue) {
 			continue
 		}
 
-		log.Println("test for start")
+		log.Println("test for start,fn:",fn)
 		for _, mv := range items {
 			mvs = append(mvs, mv)
 		}
