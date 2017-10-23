@@ -56,6 +56,7 @@ func MetricToTransfer(sec int64, fns []func() []*model.MetricValue) {
 	//分批次传给transfer
 	n := 200
 	lenMvs := len(mvs)
+	log.Println("testlenmvs")
 	log.Println("mvslen",lenMvs)			   
 
 	div := lenMvs / n
