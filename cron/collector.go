@@ -46,9 +46,11 @@ func MetricToTransfer(sec int64, fns []func() []*model.MetricValue) {
 			continue
 		}
 
+		log.Println("test for start")
 		for _, mv := range items {
 			mvs = append(mvs, mv)
 		}
+		log.Println("test for end")
 	}
 
 	startTime := time.Now()
