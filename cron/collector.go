@@ -53,10 +53,13 @@ func MetricToTransfer(sec int64, fns []func() []*model.MetricValue) {
 		log.Println("test for end")
 	}
 
+	log.Println("test 1")
 	startTime := time.Now()
 
+	log.Println("test 2")
 	//分批次传给transfer
 	n := 200
+	log.Println("test 3")
 	lenMvs := len(mvs)
 	log.Println("testlenmvs")
 	log.Println("mvslen",lenMvs)			   
