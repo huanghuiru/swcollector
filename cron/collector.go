@@ -54,15 +54,11 @@ func MetricToTransfer(sec int64, fns []func() []*model.MetricValue) {
 		log.Println("test for end")
 	}
 
-	log.Println("test 1")
 	startTime := time.Now()
 
-	log.Println("test 2")
 	//分批次传给transfer
-	n := 200
-	log.Println("test 3")
+	n := 100
 	lenMvs := len(mvs)
-	log.Println("testlenmvs")
 	log.Println("mvslen",lenMvs)			   
 
 	div := lenMvs / n
@@ -75,12 +71,11 @@ func MetricToTransfer(sec int64, fns []func() []*model.MetricValue) {
 			mvsSend = mvs[n*(i-1) : n*i]
 		} else {
 			mvsSend = mvs[n*(i-1) : (n*(i-1))+int(mod)]
+			log.Println("*mvsSend:",mvsSend)
 		}
 		time.Sleep(100 * time.Millisecond)
 
-		log.Println("testSendToTransferstart")
 		go g.SendToTransfer(mvsSend)
-		log.Println("testSendToTransferend")
 	}
 
 	endTime := time.Now()
