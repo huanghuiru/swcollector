@@ -24,10 +24,10 @@ func Collect() {
 }
 
 func collect(sec int64, fns []func() []*model.MetricValue) {
-	//for {
-	go MetricToTransfer(sec, fns)
-		//time.Sleep(time.Duration(sec) * time.Second)
-	//}
+	for {
+		go MetricToTransfer(sec, fns)
+		time.Sleep(time.Duration(sec) * time.Second)
+	}
 }
 
 func MetricToTransfer(sec int64, fns []func() []*model.MetricValue) {
