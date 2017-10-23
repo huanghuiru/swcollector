@@ -37,12 +37,12 @@ func MetricToTransfer(sec int64, fns []func() []*model.MetricValue) {
 		items := fn()
 		log.Println("firstitems",items)
 		if items == nil {
-			log.Println("items is nil"）
+			log.Println("items is nil")
 			continue
 		}
 
 		if len(items) == 0 {
-			log.Println("items is 0"）
+			log.Println("items is 0")
 			continue
 		}
 
@@ -56,7 +56,7 @@ func MetricToTransfer(sec int64, fns []func() []*model.MetricValue) {
 	//分批次传给transfer
 	n := 200
 	lenMvs := len(mvs)
-	log.Println("mvslen",lenMvs）			   
+	log.Println("mvslen",lenMvs)			   
 
 	div := lenMvs / n
 	mod := math.Mod(float64(lenMvs), float64(n))
