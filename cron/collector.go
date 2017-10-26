@@ -24,42 +24,35 @@ func Collect() {
 }
 
 func collect(sec int64, fns []func() []*model.MetricValue) {
-	//for {
-	go MetricToTransfer(sec, fns)
-		//time.Sleep(time.Duration(sec) * time.Second)
-	//}
+	for {
+		go MetricToTransfer(sec, fns)
+		time.Sleep(time.Duration(sec) * time.Second)
+	}
 }
 
 func MetricToTransfer(sec int64, fns []func() []*model.MetricValue) {
 	mvs := []*model.MetricValue{}
-	log.Println("*fns",fns)
-	
+
 	for _, fn := range fns {
 		items := fn()
-		log.Println("firstitems",items)
 		if items == nil {
-			log.Println("items is nil")
 			continue
 		}
 
 		if len(items) == 0 {
-			log.Println("items is 0")
 			continue
 		}
 
-		log.Println("test for start,fn:",fn)
 		for _, mv := range items {
 			mvs = append(mvs, mv)
 		}
-		log.Println("test for end")
 	}
 
 	startTime := time.Now()
 
 	//分批次传给transfer
-	n := 100
+	n := 5000
 	lenMvs := len(mvs)
-	log.Println("mvslen",lenMvs)			   
 
 	div := lenMvs / n
 	mod := math.Mod(float64(lenMvs), float64(n))
@@ -71,7 +64,6 @@ func MetricToTransfer(sec int64, fns []func() []*model.MetricValue) {
 			mvsSend = mvs[n*(i-1) : n*i]
 		} else {
 			mvsSend = mvs[n*(i-1) : (n*(i-1))+int(mod)]
-			log.Println("*mvsSend:",mvsSend)
 		}
 		time.Sleep(100 * time.Millisecond)
 
@@ -81,3 +73,5 @@ func MetricToTransfer(sec int64, fns []func() []*model.MetricValue) {
 	endTime := time.Now()
 	log.Println("INFO : Send metrics to transfer running in the background. Process time :", endTime.Sub(startTime), "Send metrics :", len(mvs))
 }
+
+
